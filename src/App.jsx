@@ -2,13 +2,20 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
+import { Outlet } from "react-router-dom";
+import Navbar from "./context/components/shared/Navbar";
+import Footer from "./context/components/shared/Footer";
 
 function App() {
   return (
     <>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <div className="flex flex-col  h-[100vh]">
+        <Navbar></Navbar>
+        <div className="flex-1">
+          <Outlet></Outlet>
+        </div>
+        <Footer></Footer>
+      </div>
     </>
   );
 }
