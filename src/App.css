@@ -1,0 +1,28 @@
+.bgImage {
+  background: linear-gradient(
+      0deg,
+      rgba(8, 11, 115, 0.576),
+      rgba(10, 18, 140, 0.891)
+    ),
+    url("./assets/pexels-julius-silver-240301-753331.jpg");
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.bg {
+  padding: 40px 20px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  background-color: rgba(30, 144, 255, 0.1);
+
+  border: 4px solid hsl(210, 100%, 56%, 0.2);
+  backdrop-filter: blur(6px);
+  overflow: hidden;
+  color: #fff;
+  position: relative;
+}

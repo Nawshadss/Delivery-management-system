@@ -36,6 +36,9 @@ const AuthContext = ({ children }) => {
       setUserState(user);
       setLoading(false);
     });
+    return () => {
+      return unsubscribe();
+    };
   }, []);
   const authInfo = {
     creatNewUser,

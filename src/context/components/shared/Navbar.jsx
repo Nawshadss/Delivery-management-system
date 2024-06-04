@@ -26,7 +26,7 @@ const Navbar = () => {
   );
   return (
     <div className="">
-      <div className="navbar  bg-[#192a56] ">
+      <div className="navbar bg-[#192a56] ">
         <div className="navbar-start">
           <div className="dropdown">
             <div
@@ -36,7 +36,7 @@ const Navbar = () => {
             ></div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-sm dropdown-content mt-3 z-[10] p-2 shadow bg-base-100 rounded-box w-52"
             >
               {links}
             </ul>
@@ -71,13 +71,16 @@ const Navbar = () => {
                   </div>
                   <ul
                     tabIndex={0}
-                    className="dropdown-content z-[10] menu p-2 shadow bg-base-100 rounded-box w-52 "
+                    className="dropdown-content z-[20] menu p-2 shadow bg-base-100 rounded-box w-52 "
                   >
                     <li>
                       <button onClick={logOut}>logOUt</button>
                     </li>
                     <li>
                       <a>{userState.displayName}</a>
+                    </li>
+                    <li>
+                      <Link to="/dashboard">Dashboard</Link>
                     </li>
                   </ul>
                 </div>
