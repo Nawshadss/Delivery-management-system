@@ -8,7 +8,7 @@ const PrivateRoutes = ({ children }) => {
     return <progress className="progress w-56"></progress>;
   }
   if (userState) {
-    return { children };
+    return children;
   }
   return <Navigate to="login"></Navigate>;
 };

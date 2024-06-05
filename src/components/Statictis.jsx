@@ -3,7 +3,7 @@ import Heading from "./Heading";
 import StatCard from "./statCard";
 
 const Statictis = ({ countData }) => {
-  console.log(countData);
+  // console.log(countData);
   return (
     <div>
       <Heading heading={"About Our Website"}></Heading>

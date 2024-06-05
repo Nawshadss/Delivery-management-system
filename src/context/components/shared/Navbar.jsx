@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../../assets/logo.png";
 import useAuth from "../../../hooks/useAuth.jsx";
 
 const Navbar = () => {
-  const { userState, handlesignOut } = useAuth();
+  const { userState, handlesignOut, loading } = useAuth();
+  // const [user, setUser] = useState({});
   const logOut = () => {
     handlesignOut().then((data) => console.log(data));
   };
+
   const links = (
     <>
       <li>
@@ -80,7 +82,9 @@ const Navbar = () => {
                       <a>{userState.displayName}</a>
                     </li>
                     <li>
-                      <Link to="/dashboard">Dashboard</Link>
+                      <Link to={`/dashboard/${userState.email}`}>
+                        Dashboard
+                      </Link>
                     </li>
                   </ul>
                 </div>

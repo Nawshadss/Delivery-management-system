@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "../components/Slider.jsx";
 import Hero from "../components/Hero.jsx";
 
@@ -15,12 +15,14 @@ import DeliverayCard from "../components/DeliverayCard.jsx";
 
 const Home = () => {
   const countData = useLoaderData();
-  const [topDelivers, setTopDelivers] = useState();
+  const [topDelivers, setTopDelivers] = useState([]);
   const axiosPub = AxiosPublic();
-  axiosPub.get("http://localhost:5000/topdelivers").then((res) => {
-    console.log(res.data);
-    setTopDelivers(res.data);
-  });
+  useEffect(() => {
+    axiosPub.get("http://localhost:5000/topdelivers").then((res) => {
+      // console.log(res.data);
+      setTopDelivers(res.data);
+    });
+  }, []);
 
   return (
     <div className="slider max-w-[1440px] mx-auto bg-white h-[400px]">
@@ -55,9 +57,12 @@ const Home = () => {
         <br />
         <Statictis countData={countData}></Statictis>
       </div>
-      <div className=" bg-white">
+      <h1 className="text-black font-bold text-4xl text-center my-4">
+        Our Top delivary Man
+      </h1>
+      <div className=" bg-white flex flex-wrap items-center justify-evenly gap-5">
         {topDelivers.map((data) => (
-          <DeliverayCard></DeliverayCard>
+          <DeliverayCard data={data}></DeliverayCard>
         ))}
       </div>
     </div>

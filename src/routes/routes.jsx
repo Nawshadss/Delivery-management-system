@@ -3,6 +3,15 @@ import App from "../App";
 import Home from "../pages/Home";
 import Login from "../pages/login/Login";
 import Register from "../pages/register/Register.jsx";
+import DashBoard from "../pages/dashboard/DashBoard.jsx";
+import PrivateRoutes from "./private/PrivateRoutes.jsx";
+import DashBoearMenu from "../pages/dahsboardMenu/DashBoearMenu.jsx";
+import BookParcel from "../pages/UserDashboard/BookParcel.jsx";
+import MyParcel from "../pages/UserDashboard/MyParcel.jsx";
+import AllUsers from "../pages/adminDashboard/AllUsers.jsx";
+import AllParcels from "../pages/adminDashboard/AllParcels.jsx";
+import AllDeliverayMan from "../pages/adminDashboard/AllDeliverayMan.jsx";
+import AdminStats from "../pages/adminDashboard/AdminStats.jsx";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +22,48 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home></Home>,
         loader: () => fetch("http://localhost:5000/stats"),
+      },
+      {
+        path: "/dashboard",
+        element: (
+          <PrivateRoutes>
+            <DashBoard></DashBoard>
+          </PrivateRoutes>
+        ),
+        children: [
+          {
+            path: "/dashboard/:id",
+            element: <DashBoearMenu></DashBoearMenu>,
+          },
+          {
+            path: "/dashboard/bookparcel",
+            element: <BookParcel></BookParcel>,
+          },
+          {
+            path: "/dashboard/myparcel",
+            element: <MyParcel></MyParcel>,
+          },
+          {
+            path: "/dashboard/admin/allusers",
+            element: <AllUsers></AllUsers>,
+          },
+          {
+            path: "/dashboard/admin/allparcels",
+            element: <AllParcels></AllParcels>,
+          },
+          {
+            path: "/dashboard/admin/allparcels",
+            element: <AllParcels></AllParcels>,
+          },
+          {
+            path: "/dashboard/admin/allDeliveryMan",
+            element: <AllDeliverayMan></AllDeliverayMan>,
+          },
+          {
+            path: "/dashboard/admin/statistics",
+            element: <AdminStats></AdminStats>,
+          },
+        ],
       },
     ],
   },
