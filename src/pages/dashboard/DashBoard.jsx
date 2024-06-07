@@ -6,7 +6,7 @@ const DashBoard = () => {
   return (
     <div className="flex flex-col lg:flex-row">
       <Sidebar></Sidebar>
-      <div className="flex-1">
+      <div className="flex-1 overflow-hidden">
         <Outlet></Outlet>
       </div>
     </div>

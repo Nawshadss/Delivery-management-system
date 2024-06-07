@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
+import axios from "axios";
 
 const DashBoearMenu = () => {
   const { userState } = useAuth();
@@ -7,12 +8,10 @@ const DashBoearMenu = () => {
 
   console.log(userState?.email);
   useEffect(() => {
-    fetch(`http://localhost:5000/user/${userState.email}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setUser(data);
-        console.log(data);
-      });
+    axios.get(`http://localhost:5000/user/${userState.email}`).then((data) => {
+      setUser(data.data);
+      console.log(data.data);
+    });
   }, []);
   return (
     <div>

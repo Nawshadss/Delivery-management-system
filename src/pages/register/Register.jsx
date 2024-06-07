@@ -25,27 +25,16 @@ const Register = () => {
   } = useForm();
   const onSubmit = async (data) => {
     console.log(data);
-    const { email, category, name, password } = data;
-    const imageFile = { image: data.file[0] };
-    const res = await axios.post(
-      `https://api.imgbb.com/1/upload?key=${iamgeHostingKey}`,
-      imageFile,
-      {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      }
-    );
+    const { email, category, name, password, image, number } = data;
+
     const user = {
       email,
       category,
       name,
       password,
-      image: res.data.data.display_url,
+      image: image,
+      number,
     };
-    console.log(res.data.data.display_url);
-    console.log(imageFile);
-
     axiosPublic.post("/register", user).then((data) => console.log(data.data));
     creatNewUser(email, password)
       .then((data) => {
@@ -128,6 +117,21 @@ const Register = () => {
               </div>
               <div className="form-control">
                 <label className="label">
+                  <span className="label-text">Number</span>
+                </label>
+                <input
+                  type="number"
+                  {...register("number", { required: true })}
+                  placeholder="number"
+                  className="input input-bordered"
+                  required
+                />
+                {errors.number && (
+                  <span className="text-error">This field is required</span>
+                )}
+              </div>
+              <div className="form-control">
+                <label className="label">
                   <span className="label-text">Password</span>
                 </label>
                 <input
@@ -152,12 +156,26 @@ const Register = () => {
                     Password must contain one uppercase one lowercase and number
                   </span>
                 )}
-                <input
-                  className="btn bg-[#1F8FFF] text-white font-bold"
-                  type="submit"
-                />
-                <input type="file" {...register("file")} required />
               </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">ImageUlr</span>
+                </label>
+                <input
+                  type="text"
+                  {...register("image", { required: true })}
+                  placeholder="name"
+                  className="input input-bordered"
+                  required
+                />
+                {errors.image && (
+                  <span className="text-error">This field is required</span>
+                )}
+              </div>
+              <input
+                className="btn bg-[#1F8FFF] text-white font-bold"
+                type="submit"
+              />
               <div>
                 Already have and accoutn
                 <Link to="/login" className="link text-blue-600">

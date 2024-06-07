@@ -14,7 +14,7 @@ import AxiosPublic from "../hooks/AxiosPublic.jsx";
 import DeliverayCard from "../components/DeliverayCard.jsx";
 
 const Home = () => {
-  const countData = useLoaderData();
+  // const countData = useLoaderData();
   const [topDelivers, setTopDelivers] = useState([]);
   const axiosPub = AxiosPublic();
   useEffect(() => {
@@ -55,7 +55,7 @@ const Home = () => {
           ></HomeCard>
         </div>
         <br />
-        <Statictis countData={countData}></Statictis>
+        {/* <Statictis countData={countData}></Statictis> */}
       </div>
       <h1 className="text-black font-bold text-4xl text-center my-4">
         Our Top delivary Man

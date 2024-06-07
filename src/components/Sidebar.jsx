@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import axios from "axios";
 
 const Sidebar = () => {
   const { userState } = useAuth();
@@ -8,12 +9,10 @@ const Sidebar = () => {
 
   console.log(userState?.email);
   useEffect(() => {
-    fetch(`http://localhost:5000/user/${userState.email}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setUser(data);
-        console.log(data);
-      });
+    axios.get(`http://localhost:5000/user/${userState.email}`).then((data) => {
+      console.log(data);
+      setUser(data.data);
+    });
   }, []);
 
   return (
@@ -37,7 +36,7 @@ const Sidebar = () => {
           ></label>
           <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
             {/* Sidebar content here */}
-            {userState && user?.role !== "admin" && (
+            {userState && (
               <>
                 <li>
                   <NavLink to={`/dashboard/${userState.eamil}`}>
@@ -52,7 +51,24 @@ const Sidebar = () => {
                 </li>
               </>
             )}
-            {userState && user?.role === "admin" && (
+            {userState && (
+              <>
+                <li>
+                  <NavLink to={`/dashboard/${userState.eamil}`}>
+                    My Profile
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/dashboard/MyDeliveryList">
+                    My Delivery List
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/dashboard/reviews">My Reviews</NavLink>
+                </li>
+              </>
+            )}
+            {userState && (
               <>
                 <li>
                   <NavLink to={`/dashboard/${userState.eamil}`}>

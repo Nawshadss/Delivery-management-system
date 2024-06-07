@@ -12,6 +12,8 @@ import AllUsers from "../pages/adminDashboard/AllUsers.jsx";
 import AllParcels from "../pages/adminDashboard/AllParcels.jsx";
 import AllDeliverayMan from "../pages/adminDashboard/AllDeliverayMan.jsx";
 import AdminStats from "../pages/adminDashboard/AdminStats.jsx";
+import MyReviews from "../pages/deliveryDashboeard/MyReviews.jsx";
+import MyDeliveryList from "../pages/deliveryDashboeard/MyDeliveryList.jsx";
 
 const router = createBrowserRouter([
   {
@@ -21,7 +23,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
-        loader: () => fetch("http://localhost:5000/stats"),
+        // loader: () => fetch("http://localhost:5000/stats"),
       },
       {
         path: "/dashboard",
@@ -62,6 +64,14 @@ const router = createBrowserRouter([
           {
             path: "/dashboard/admin/statistics",
             element: <AdminStats></AdminStats>,
+          },
+          {
+            path: "/dashboard/reviews",
+            element: <MyReviews></MyReviews>,
+          },
+          {
+            path: "/dashboard/MyDeliveryList",
+            element: <MyDeliveryList></MyDeliveryList>,
           },
         ],
       },

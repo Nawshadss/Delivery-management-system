@@ -5,6 +5,7 @@ import { TbTruckDelivery } from "react-icons/tb";
 const AllDeliverayMan = () => {
   const axioPub = AxiosPublic();
   const [delivaryMan, setDelivaryMan] = useState([]);
+
   useEffect(() => {
     axioPub.get("/allDelivaryMan").then((res) => {
       setDelivaryMan(res.data);
@@ -33,6 +34,10 @@ const AllDeliverayMan = () => {
                 <th>{index + 1}</th>
                 <td>{data.name}</td>
                 <td>{data.category}</td>
+                <td>{data.totalParcelDelivered}</td>
+                <td>
+                  {(data.averageRatings / data.totalParcelDelivered).toFixed(2)}
+                </td>
               </tr>
             ))}
             {/* row 2 */}
