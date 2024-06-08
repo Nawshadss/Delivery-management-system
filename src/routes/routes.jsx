@@ -14,6 +14,7 @@ import AllDeliverayMan from "../pages/adminDashboard/AllDeliverayMan.jsx";
 import AdminStats from "../pages/adminDashboard/AdminStats.jsx";
 import MyReviews from "../pages/deliveryDashboeard/MyReviews.jsx";
 import MyDeliveryList from "../pages/deliveryDashboeard/MyDeliveryList.jsx";
+import Update from "../pages/update/Update.jsx";
 
 const router = createBrowserRouter([
   {
@@ -72,6 +73,12 @@ const router = createBrowserRouter([
           {
             path: "/dashboard/MyDeliveryList",
             element: <MyDeliveryList></MyDeliveryList>,
+          },
+          {
+            path: "/dashboard/update/:id",
+            element: <Update></Update>,
+            loader: ({ params }) =>
+              fetch(`http://localhost:5000/dashboard/update/${params.id}`),
           },
         ],
       },

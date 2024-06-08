@@ -2,6 +2,7 @@ import React from "react";
 import AxiosPublic from "../../hooks/AxiosPublic";
 import useAuth from "../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
 
 const MyParcel = () => {
   const axiosPub = AxiosPublic();
@@ -13,6 +14,7 @@ const MyParcel = () => {
       return res.data;
     },
   });
+  const handleDelete = (id) => {};
   console.log(myparcels);
   return (
     <div>
@@ -36,7 +38,7 @@ const MyParcel = () => {
               <tr key={index}>
                 <th>{1 + index}</th>
                 <td>{data.parcelType}</td>
-                <td> {data?.approxDate ? data.approxDate : "not yet given"}</td>
+                <td> {data?.approxDate}</td>
                 <td>{data.requestedDeliveryDate}</td>
                 <td>{data?.bookingDate}</td>
                 <td>
@@ -48,10 +50,14 @@ const MyParcel = () => {
                 {data.status === "pending" && (
                   <>
                     <td>
-                      <button>Cancel</button>
+                      <button onClick={() => handleDelete(data._id)}>
+                        Cancel
+                      </button>
                     </td>
                     <td>
-                      <button>Update</button>
+                      <button>
+                        <Link to={`/dashboard/update/${data._id}`}>Update</Link>
+                      </button>
                     </td>
                   </>
                 )}
