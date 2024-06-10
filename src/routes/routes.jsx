@@ -24,7 +24,6 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
-        // loader: () => fetch("http://localhost:5000/stats"),
       },
       {
         path: "/dashboard",
@@ -78,7 +77,9 @@ const router = createBrowserRouter([
             path: "/dashboard/update/:id",
             element: <Update></Update>,
             loader: ({ params }) =>
-              fetch(`http://localhost:5000/dashboard/update/${params.id}`),
+              fetch(
+                `https://assaignment12-server-site.vercel.app/dashboard/update/${params.id}`
+              ),
           },
         ],
       },

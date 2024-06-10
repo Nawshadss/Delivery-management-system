@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../../assets/logo.png";
 import useAuth from "../../../hooks/useAuth.jsx";
+import { FaBell } from "react-icons/fa";
 
 const Navbar = () => {
   const { userState, handlesignOut, loading } = useAuth();
   // const [user, setUser] = useState({});
+
   const logOut = () => {
     handlesignOut().then((data) => console.log(data));
   };
@@ -14,15 +16,6 @@ const Navbar = () => {
     <>
       <li>
         <NavLink to="/">Home</NavLink>
-      </li>
-      <li>
-        <NavLink to="home"></NavLink>
-      </li>
-      <li>
-        <NavLink to="home">Home</NavLink>
-      </li>
-      <li>
-        <NavLink to="home">Home</NavLink>
       </li>
     </>
   );
@@ -69,6 +62,9 @@ const Navbar = () => {
                         alt="Tailwind CSS Navbar component"
                         src={userState.photoURL}
                       />
+                    </div>
+                    <div>
+                      <FaBell className=" text-3xl ml-4 text-white" />
                     </div>
                   </div>
                   <ul

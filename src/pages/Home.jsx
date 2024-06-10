@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Slider from "../components/Slider.jsx";
 import Hero from "../components/Hero.jsx";
-
+import Aos from "aos";
+import "aos/dist/aos.css";
 import "../App.css";
 import Heading from "../components/Heading.jsx";
 import HomeCard from "../components/HomeCard.jsx";
@@ -14,14 +15,20 @@ import AxiosPublic from "../hooks/AxiosPublic.jsx";
 import DeliverayCard from "../components/DeliverayCard.jsx";
 
 const Home = () => {
-  // const countData = useLoaderData();
+  const [countData, setCountData] = useState([]);
   const [topDelivers, setTopDelivers] = useState([]);
   const axiosPub = AxiosPublic();
   useEffect(() => {
-    axiosPub.get("http://localhost:5000/topdelivers").then((res) => {
-      // console.log(res.data);
-      setTopDelivers(res.data);
-    });
+    axiosPub
+      .get("https://assaignment12-server-site.vercel.app/topdelivers")
+      .then((res) => {
+        // console.log(res.data);
+        setTopDelivers(res.data);
+      });
+    fetch("https://assaignment12-server-site.vercel.app/stats")
+      .then((res) => res.json())
+      .then((data) => setCountData(data));
+    Aos.init();
   }, []);
 
   return (
@@ -32,38 +39,49 @@ const Home = () => {
           <Hero></Hero>
         </div>
       </div>
-
       <div className="bgImage ">
-        <Heading heading={"What W Serve"}></Heading>
+        <Heading heading={"What We Serve"}></Heading>
         <div className="flex flex-wrap items-center justify-evenly ">
-          <HomeCard
-            image={man}
-            para={
-              "We provide with good ,reliable and efficient workers throughout your orders"
-            }
-            title={"Efficient Workers"}
-          ></HomeCard>
-          <HomeCard
-            para={"We provide with Fast shiping on time"}
-            image={van}
-            title={"Fast Delivary"}
-          ></HomeCard>
-          <HomeCard
-            para={"We provide delivary within a day or your time of choise"}
-            image={delivary}
-            title={"One Day delivary"}
-          ></HomeCard>
+          <div data-aos="fade-right">
+            <HomeCard
+              image={man}
+              para={
+                "We provide with good ,reliable and efficient workers throughout your orders"
+              }
+              title={"Efficient Workers"}
+            ></HomeCard>
+          </div>
+          <div data-aos="fade-left">
+            <HomeCard
+              para={"We provide with Fast shiping on time"}
+              image={van}
+              title={"Fast Delivary"}
+            ></HomeCard>
+          </div>
+
+          <div data-aos="fade-up-right">
+            <HomeCard
+              para={"We provide delivary within a day or your time of choise"}
+              image={delivary}
+              title={"One Day delivary"}
+            ></HomeCard>
+          </div>
         </div>
         <br />
-        {/* <Statictis countData={countData}></Statictis> */}
-      </div>
-      <h1 className="text-black font-bold text-4xl text-center my-4">
-        Our Top delivary Man
-      </h1>
-      <div className=" bg-white flex flex-wrap items-center justify-evenly gap-5">
-        {topDelivers.map((data) => (
-          <DeliverayCard data={data}></DeliverayCard>
-        ))}
+        <div data-aos="fade-right">
+          <Statictis countData={countData}></Statictis>
+        </div>
+        <h1
+          data-aos="fade-left"
+          className="text-white font-bold text-4xl text-center my-4"
+        >
+          Our Top delivary Man
+        </h1>
+        <div className="  flex flex-wrap items-center justify-evenly gap-5">
+          {topDelivers.map((data) => (
+            <DeliverayCard data={data}></DeliverayCard>
+          ))}
+        </div>
       </div>
     </div>
   );

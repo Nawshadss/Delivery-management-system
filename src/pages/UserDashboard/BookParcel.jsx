@@ -11,10 +11,14 @@ const BookParcel = () => {
 
   console.log(userState.email);
   useEffect(() => {
-    axios.get(`http://localhost:5000/user/${userState.email}`).then((data) => {
-      setUser(data.data);
-      console.log(data.data.name);
-    });
+    axios
+      .get(
+        `https://assaignment12-server-site.vercel.app/user/${userState.email}`
+      )
+      .then((data) => {
+        setUser(data.data);
+        console.log(data.data.name);
+      });
   }, []);
 
   const [formData, setFormData] = useState({
@@ -62,7 +66,7 @@ const BookParcel = () => {
       formData
     );
     console.log(formData);
-    if (resut.data.result.acknowledged) {
+    if (resut.data) {
       Swal.fire({
         position: "top-end",
         icon: "success",

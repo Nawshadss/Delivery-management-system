@@ -6,8 +6,10 @@ import { AuthProvider } from "../../context/AuthContext.jsx";
 import { GoogleAuthProvider } from "firebase/auth";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import AxiosPublic from "../../hooks/AxiosPublic.jsx";
 // 1F8FFF 192a56
 const Login = () => {
+  const AxiosPub = AxiosPublic();
   const navigate = useNavigate();
   const { logInUser } = useAuth();
   const {
@@ -29,7 +31,10 @@ const Login = () => {
   const handleGoogleLogin = () => {
     googleSignInPop(provider).then((res) => {
       console.log(res);
-      navigate("/");
+      AxiosPub.post("/googlesignin", userState).then((data) => {
+        console.log(data.data);
+        navigate("/");
+      });
     });
   };
   return (

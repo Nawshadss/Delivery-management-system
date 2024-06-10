@@ -3,18 +3,32 @@ import AxiosPublic from "../../hooks/AxiosPublic";
 import useAuth from "../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const MyParcel = () => {
   const axiosPub = AxiosPublic();
   const { userState } = useAuth();
   const { data: myparcels = [], refetch } = useQuery({
-    queryKey: ["users"],
+    queryKey: ["myparcel"],
     queryFn: async () => {
       const res = await axiosPub.get(`/myparcel/${userState.email}`);
       return res.data;
     },
   });
-  const handleDelete = (id) => {};
+  const handleDelete = (id) => {
+    axiosPub.patch(`/deleteParcel/${id}`).then((res) => {
+      if (res.data.modifiedCount > 0) {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Parcel added",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        refetch();
+      }
+    });
+  };
   console.log(myparcels);
   return (
     <div>

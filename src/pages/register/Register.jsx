@@ -62,7 +62,7 @@ const Register = () => {
       console.log(res);
 
       axiosPublic
-        .post("/register", userState)
+        .post(`/googlesignin/${userState.email}`, userState)
         .then((data) => console.log(data.data));
       navigate("/");
     });

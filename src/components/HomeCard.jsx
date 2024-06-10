@@ -1,9 +1,10 @@
 import React from "react";
+import "../App.css";
 
 const HomeCard = ({ image, title, para }) => {
   return (
     <div>
-      <div className="card w-96 h-[350px] shadow-xl border border-[##1F8FFF] bg-[#192a56]  my-2">
+      <div className="card bg w-96 h-[350px] shadow-xl border border-[##1F8FFF]   my-2">
         <figure className="px-10 pt-10">
           <img src={image} alt="Shoes" className="rounded-xl" />
         </figure>

@@ -25,7 +25,7 @@ const Update = () => {
     console.log(newParcel);
     axiosPub.patch(`/updateParcel/${parcel._id}`, newParcel).then((res) => {
       console.log(res.data);
-      if (res.data.modiFiedCount > 0) {
+      if (res.data.modifiedCount > 0) {
         Swal.fire({
           position: "top-end",
           icon: "success",

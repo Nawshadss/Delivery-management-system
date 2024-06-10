@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import AxiosPublic from "../../hooks/AxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const MyDeliveryList = () => {
   const axiosPub = AxiosPublic();
@@ -9,17 +10,72 @@ const MyDeliveryList = () => {
   const [user, setUser] = useState({});
   useEffect(() => {
     axiosPub
-      .get(`http://localhost:5000/user/${userState.email}`)
+      .get(
+        `https://assaignment12-server-site.vercel.app/user/${userState.email}`
+      )
       .then((res) => setUser(res.data));
+    refetch();
   }, []);
   console.log(user);
   const { data: delivaryList = [], refetch } = useQuery({
     queryKey: ["delivaryList"],
     queryFn: async () => {
-      const res = await axiosPub.get(`/deliveryList/${user._id}`);
+      const res = await axiosPub.get(`/mydeliveryList/${userState.email}`);
       return res.data;
     },
   });
+
+  const handleCancel = (id) => {
+    console.log(id);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes,Cancel Delivery",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosPub
+          .patch(`/cancelDelivery/${id}?email=${userState.email}`, user)
+          .then((data) => {
+            refetch();
+            console.log(data.data);
+            Swal.fire({
+              title: "Canceled",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+          });
+      }
+    });
+  };
+
+  const handleDelivered = (id) => {
+    Swal.fire({
+      title: "Is Your Parcel Delivered",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosPub
+          .patch(`/delivered/${id}?email=${userState.email}`, user)
+          .then((data) => {
+            refetch();
+            console.log(data.data);
+            Swal.fire({
+              title: "Canceled",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+          });
+      }
+    });
+  };
   console.log(delivaryList);
   return (
     <div>
@@ -52,6 +108,14 @@ const MyDeliveryList = () => {
                 <td>{data?.approxDate}</td>
                 <td>{data?.receiverPhoneNumber}</td>
                 <td>{data?.parcelDeliveryAddress}</td>
+                <td>
+                  <button onClick={() => handleCancel(data._id)}>Cancel</button>
+                </td>
+                <td>
+                  <button onClick={() => handleDelivered(data._id)}>
+                    Delivered
+                  </button>
+                </td>
               </tr>
             ))}
             {/* row 2 */}

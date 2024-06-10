@@ -46,7 +46,7 @@ const AllParcels = () => {
                 ) : (
                   <td>
                     <button className="bg-transparent">
-                      <Modal parcel={data}></Modal>
+                      <Modal parcel={data} rfetch={refetch}></Modal>
                     </button>
                   </td>
                 )}

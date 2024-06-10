@@ -8,7 +8,7 @@ import "../App.css";
 const statCard = ({ data }) => {
   return (
     <div>
-      <div className=" min-w-48 bg">
+      <div className=" min-w-48 bg my-4">
         <div className="stat">
           <div className="stat-title text-center text-white">{data.title}</div>
           <div className="stat-value text-center flex items-center justify-between">

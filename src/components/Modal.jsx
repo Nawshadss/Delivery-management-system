@@ -5,7 +5,7 @@ import axios from "axios";
 import { Manipulation } from "swiper/modules";
 import Swal from "sweetalert2";
 
-const Modal = ({ parcel }) => {
+const Modal = ({ parcel, rfetch }) => {
   const [approxDate, setApproxDate] = useState("");
   const Parcel = parcel;
   const axiosPub = AxiosPublic();
@@ -20,16 +20,20 @@ const Modal = ({ parcel }) => {
   const handleChange = (e) => {
     setApproxDate(e.target.value);
   };
-  const assaignParcel = (manId, parcelId) => {
+  const assaignParcel = (manId, email) => {
     const parcelWihtDate = {
       ...Parcel,
       approxDate: approxDate,
     };
     axios
-      .post(`http://localhost:5000/assaignParcel/${manId}`, parcelWihtDate)
+      .post(
+        `https://assaignment12-server-site.vercel.app/assaignParcel/${manId}?email=${email}`,
+        parcelWihtDate
+      )
       .then((res) => {
         console.log(res.data);
         if (res.data.update.modifiedCount > 0) {
+          rfetch();
           Swal.fire({
             position: "top-end",
             icon: "success",
@@ -37,7 +41,6 @@ const Modal = ({ parcel }) => {
             showConfirmButton: false,
             timer: 1500,
           });
-          refetch();
         } else {
           Swal.fire({
             position: "top-end",
@@ -59,9 +62,9 @@ const Modal = ({ parcel }) => {
       >
         Manage
       </button>
-      <dialog id="my_modal_1" className="modal">
-        <div className="modal-box">
-          <div className="overflow-x-auto">
+      <dialog id="my_modal_1" className="modal ">
+        <div className="modal-box ">
+          <div className="overflow-x-auto ">
             <table className="table">
               {/* head */}
               <thead>
@@ -84,16 +87,22 @@ const Modal = ({ parcel }) => {
 
                     <td>{data.totalParcelDelivered}</td>
                     <td>
-                      {(
-                        data.averageRatings / data.totalParcelDelivered
-                      ).toFixed(2)}
+                      {isNaN(
+                        (
+                          data.averageRatings / data.totalParcelDelivered
+                        ).toFixed(2)
+                      )
+                        ? 0
+                        : (
+                            data.averageRatings / data.totalParcelDelivered
+                          ).toFixed(2)}
                     </td>
                     <td>
                       <input onChange={handleChange} type="date" />
                     </td>
                     <td>
                       <button
-                        onClick={() => assaignParcel(data._id, parcel._id)}
+                        onClick={() => assaignParcel(data._id, data.email)}
                       >
                         Assaingn Parcel
                       </button>

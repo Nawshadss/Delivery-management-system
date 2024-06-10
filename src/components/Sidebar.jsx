@@ -9,11 +9,60 @@ const Sidebar = () => {
 
   console.log(userState?.email);
   useEffect(() => {
-    axios.get(`http://localhost:5000/user/${userState.email}`).then((data) => {
-      console.log(data);
-      setUser(data.data);
-    });
+    axios
+      .get(
+        `https://assaignment12-server-site.vercel.app/user/${userState.email}`
+      )
+      .then((data) => {
+        console.log(data);
+        setUser(data.data);
+      });
   }, []);
+  const links = (
+    <>
+      <li>
+        <NavLink to={`/dashboard/${userState.email}`}>My Profile</NavLink>
+      </li>
+      {userState && user.category === "User" && (
+        <>
+          <li>
+            <NavLink to="/dashboard/bookparcel">- Book a Parcel</NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/myparcel">My Parcels</NavLink>
+          </li>
+        </>
+      )}
+      {userState && user.category === "Delivery Man" && (
+        <>
+          <li>
+            <NavLink to="/dashboard/MyDeliveryList">My Delivery List</NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/reviews">My Reviews</NavLink>
+          </li>
+        </>
+      )}
+      {userState && user.role === "admin" && (
+        <>
+          <li>
+            <NavLink to="/dashboard/admin/allusers">All Users</NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/admin/allparcels">All Parcels</NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/admin/allDeliveryMan">
+              , All Delivery Men
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/admin/statistics">Statistics</NavLink>
+          </li>
+        </>
+      )}
+    </>
+  );
 
   return (
     <div>
@@ -36,63 +85,7 @@ const Sidebar = () => {
           ></label>
           <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
             {/* Sidebar content here */}
-            {userState && (
-              <>
-                <li>
-                  <NavLink to={`/dashboard/${userState.eamil}`}>
-                    My Profile
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/dashboard/bookparcel">- Book a Parcel</NavLink>
-                </li>
-                <li>
-                  <NavLink to="/dashboard/myparcel">My Parcels</NavLink>
-                </li>
-              </>
-            )}
-            {userState && (
-              <>
-                <li>
-                  <NavLink to={`/dashboard/${userState.eamil}`}>
-                    My Profile
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/dashboard/MyDeliveryList">
-                    My Delivery List
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/dashboard/reviews">My Reviews</NavLink>
-                </li>
-              </>
-            )}
-            {userState && (
-              <>
-                <li>
-                  <NavLink to={`/dashboard/${userState.eamil}`}>
-                    My Profile
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/dashboard/admin/allusers">All Users</NavLink>
-                </li>
-                <li>
-                  <NavLink to="/dashboard/admin/allparcels">
-                    All Parcels
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/dashboard/admin/allDeliveryMan">
-                    , All Delivery Men
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/dashboard/admin/statistics">Statistics</NavLink>
-                </li>
-              </>
-            )}
+            {links}
           </ul>
         </div>
       </div>
