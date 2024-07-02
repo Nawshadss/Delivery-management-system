@@ -1,5 +1,6 @@
-import React, { PureComponent } from "react";
+import React, { PureComponent, useEffect, useState } from "react";
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid } from "recharts";
+import AxiosPublic from "../../hooks/AxiosPublic";
 const colors = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "red", "pink"];
 const getPath = (x, y, width, height) => {
   return `M${x},${y + height}C${x + width / 3},${y + height} ${x + width / 2},${
@@ -32,6 +33,13 @@ const data = [
 ];
 
 const AdminStats = () => {
+
+  const axiosPub=AxiosPublic()
+  const [bookign,setBookings]=useState([])
+  useEffect(()=>{
+    axiosPub.get('/adminStat')
+    .then(res=>setBookings(res.data))
+  },[])
   return (
     <div>
       <BarChart
